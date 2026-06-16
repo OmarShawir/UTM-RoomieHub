@@ -300,7 +300,7 @@ CLIENT_URL=http://localhost:5173
 - All API calls go through `/src/services/api.js` — never write raw fetch/axios in components
 - Use the shared components in `/components` — don't create duplicate UI elements
 - Keep pages clean — logic goes in hooks, API calls go in services
-- Test your feature on `dev` branch before requesting a merge
+- Test your feature on `dev` branch before requesting a merge 
 
 ---
 
