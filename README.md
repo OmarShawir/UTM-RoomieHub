@@ -1,4 +1,4 @@
-# 🏠 UTM RoomieHub
+# 🏠UTM RoomieHub
 
 > A dedicated web platform for UTM students to find verified accommodation and compatible roommates within the university community.
 
