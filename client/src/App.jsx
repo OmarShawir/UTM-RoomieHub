@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 // ─── Pages: Auth (Najmeldeen) ────────────────────
 import LoginPage            from './pages/auth/LoginPage';
@@ -149,6 +150,7 @@ function AppRoutes() {
         <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>
+      <Footer />
     </>
   );
 }
