@@ -1,4 +1,3 @@
--- Active: 1782901936182@@shuttle.proxy.rlwy.net@33340@mysql
 CREATE TABLE IF NOT EXISTS conversations (
   id                  INT PRIMARY KEY AUTO_INCREMENT,
   listing_id          INT DEFAULT NULL,
