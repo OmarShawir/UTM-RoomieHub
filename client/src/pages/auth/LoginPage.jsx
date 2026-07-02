@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './AuthPages.css';
 
@@ -28,7 +29,7 @@ export default function LoginPage() {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError('Invalid email or password');
+      setError(err?.response?.data?.message || 'Invalid email or password');
     } finally {
       setLoading(false);
     }
@@ -38,7 +39,8 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="card auth-card">
         <div className="auth-header">
-          <img src="/Logo1.svg" alt="UTM RoomieHub" className="auth-logo" />
+          <img src="/Logo1.svg" alt="UTM RoomieHub" className="auth-logo theme-logo-light" />
+          <img src="/LogoDarkmode.png" alt="UTM RoomieHub" className="auth-logo theme-logo-dark" />
           <h2>Welcome Back</h2>
           <p>Sign in to access your UTM RoomieHub account</p>
         </div>
@@ -88,6 +90,12 @@ export default function LoginPage() {
             Don't have an account?{' '}
             <Link to="/register" className="auth-link">Sign Up</Link>
           </p>
+
+          <div style={{ textAlign: 'center', marginTop: '16px' }}>
+            <Link to="/" className="auth-back-link">
+              <ArrowLeft size={16} /> Back to Home
+            </Link>
+          </div>
         </form>
       </div>
     </div>
