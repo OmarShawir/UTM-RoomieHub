@@ -1,26 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
+import api from '../../services/api';
+import { DEFAULT_AVATAR } from '../../utils/defaults';
 import './AdminPages.css';
 
 export default function ReinstateUserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [notes, setNotes] = useState('');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
-  const user = {
-    name: 'Ahmad Zaki bin Abdullah',
-    matric: 'A21EC0123',
-    email: 'ahmad.zaki@graduate.utm.my',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-    suspendedOn: 'May 15, 2026',
-    suspensionReason: 'Multiple reports of inappropriate behavior',
-  };
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await api.get(`/admin/users?keyword=`);
+        if (res.data.success) {
+          const found = res.data.users.find((u) => String(u.id) === String(id));
+          setUser(found || null);
+        }
+      } catch (err) {
+        console.error('Failed to load user:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/admin/users');
+    try {
+      setSubmitting(true);
+      await api.put(`/admin/users/${id}/reinstate`, { reason: notes || 'Reinstated by admin' });
+      navigate('/admin/users');
+    } catch (err) {
+      console.error('Failed to reinstate user:', err);
+      alert('Failed to reinstate user. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (loading) return <div className="page-wrapper" style={{ textAlign: 'center', padding: '40px 0' }}>Loading...</div>;
+  if (!user) return <div className="page-wrapper"><p>User not found.</p></div>;
 
   return (
     <div className="page-wrapper" style={{ maxWidth: 560 }}>
@@ -34,18 +59,17 @@ export default function ReinstateUserPage() {
       <div className="card">
         <div className="user-target-card" style={{ justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <img src={user.avatar} alt={user.name} />
+            <img
+              src={user.profile_picture || DEFAULT_AVATAR}
+              alt={user.full_name}
+              onError={(e) => { e.target.src = DEFAULT_AVATAR; }}
+            />
             <div>
-              <div className="name">{user.name}</div>
-              <div className="sub">{user.matric} • {user.email}</div>
+              <div className="name">{user.full_name}</div>
+              <div className="sub">{user.matric_no} • {user.email}</div>
             </div>
           </div>
           <span className="badge badge-suspended">Suspended</span>
-        </div>
-
-        <div className="info-bullet-list">
-          <div>Suspended On: {user.suspendedOn}</div>
-          <div>Suspension Reason: {user.suspensionReason}</div>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -63,7 +87,9 @@ export default function ReinstateUserPage() {
           </div>
 
           <div className="listing-form-actions" style={{ display: 'flex', gap: 12 }}>
-            <button type="submit" className="btn btn-success" style={{ flex: 1 }}>Reinstate Account</button>
+            <button type="submit" className="btn btn-success" style={{ flex: 1 }} disabled={submitting}>
+              {submitting ? 'Reinstating...' : 'Reinstate Account'}
+            </button>
             <button type="button" className="btn btn-secondary" style={{ flex: 1 }} onClick={() => navigate('/admin/users')}>Cancel</button>
           </div>
         </form>
