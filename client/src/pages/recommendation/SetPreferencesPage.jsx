@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 import '../listings/ListingPages.css';
 import '../chat/ChatPages.css';
 
@@ -11,15 +12,59 @@ export default function SetPreferencesPage() {
   const [maxPrice, setMaxPrice] = useState(800);
   const [maxDistance, setMaxDistance] = useState(3);
   const [amenities, setAmenities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPrefs = async () => {
+      try {
+        const res = await api.get('/matching/room/preferences');
+        if (res.data.success && res.data.preferences) {
+          const p = res.data.preferences;
+          setRoomType(p.room_type || '');
+          setMaxPrice(p.max_budget ? Number(p.max_budget) : 800);
+          setMaxDistance(p.max_distance_km ? Number(p.max_distance_km) : 3);
+        }
+        
+        // Load Required Amenities from localStorage
+        const storedAmenities = localStorage.getItem('room_required_amenities');
+        if (storedAmenities) {
+          setAmenities(JSON.parse(storedAmenities));
+        }
+      } catch (err) {
+        console.error('Failed to load preferences:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPrefs();
+  }, []);
 
   const toggleAmenity = (a) => {
     setAmenities((prev) => prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/ai-match');
+    try {
+      const res = await api.post('/matching/room/preferences', {
+        room_type: roomType,
+        max_budget: maxPrice,
+        max_distance_km: maxDistance,
+      });
+      if (res.data.success) {
+        // Store Required Amenities in localStorage
+        localStorage.setItem('room_required_amenities', JSON.stringify(amenities));
+        navigate('/ai-match');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save preferences.');
+    }
   };
+
+  if (loading) {
+    return <div className="page-wrapper" style={{ textAlign: 'center', padding: '40px 0' }}>Loading preferences...</div>;
+  }
 
   return (
     <div className="page-wrapper" style={{ maxWidth: 640 }}>
@@ -68,7 +113,7 @@ export default function SetPreferencesPage() {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Find Recommendations</button>
+        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: 20 }}>Find Recommendations</button>
       </form>
     </div>
   );

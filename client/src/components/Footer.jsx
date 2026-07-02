@@ -10,8 +10,11 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
-        <div className="site-footer-brand">
-          <img src="/Logo1.svg" alt="UTM RoomieHub" className="site-footer-logo" />
+        <div className="footer-col brand-col">
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img src="/Logo1.svg" alt="UTM RoomieHub" className="site-footer-logo theme-logo-light" />
+            <img src="/LogoDarkmode.png" alt="UTM RoomieHub" className="site-footer-logo theme-logo-dark" />
+          </div>
           <p>
             Connecting UTM students with verified rooms, trusted roommates, and smarter housing choices.
           </p>

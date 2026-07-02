@@ -14,13 +14,7 @@ export function AuthProvider({ children }) {
       api.get('/auth/me')
         .then(res => setUser(res.data.user))
         .catch(() => {
-          // Backend not reachable yet — fall back to the mock session if we have one
-          const mockUser = localStorage.getItem('mockUser');
-          if (mockUser) {
-            setUser(JSON.parse(mockUser));
-          } else {
-            localStorage.removeItem('token');
-          }
+          localStorage.removeItem('token');
         })
         .finally(() => setLoading(false));
     } else {
@@ -29,66 +23,29 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    try {
-      const res = await api.post('/auth/login', { email, password });
-      localStorage.setItem('token', res.data.token);
-      setUser(res.data.user);
-    } catch (err) {
-      // Backend not available yet — fall back to a mock session so the UI is testable
-      if (!err.response) {
-        const mockUser = {
-          id: 'mock-' + Date.now(),
-          full_name: email.split('@')[0],
-          email,
-          role: email.includes('admin') ? 'admin' : 'student',
-        };
-        localStorage.setItem('token', 'mock-token');
-        localStorage.setItem('mockUser', JSON.stringify(mockUser));
-        setUser(mockUser);
-      } else {
-        throw err;
-      }
-    }
+    const res = await api.post('/auth/login', { email, password });
+    localStorage.setItem('token', res.data.token);
+    setUser(res.data.user);
   };
 
   const register = async ({ fullName, studentId, email, password }) => {
-    try {
-      const res = await api.post('/auth/register', {
-        full_name: fullName,
-        student_id: studentId,
-        email,
-        password,
-      });
-      localStorage.setItem('token', res.data.token);
-      setUser(res.data.user);
-    } catch (err) {
-      // Backend not available yet — fall back to a mock session so the UI is testable
-      if (!err.response) {
-        const mockUser = {
-          id: 'mock-' + Date.now(),
-          full_name: fullName,
-          student_id: studentId,
-          email,
-          role: email.includes('admin') ? 'admin' : 'student',
-        };
-        localStorage.setItem('token', 'mock-token');
-        localStorage.setItem('mockUser', JSON.stringify(mockUser));
-        setUser(mockUser);
-      } else {
-        throw err;
-      }
-    }
+    await api.post('/auth/register', {
+      full_name: fullName,
+      matric_no: studentId,
+      email,
+      password,
+    });
+    // Registration does NOT return a token — user must verify email first
   };
 
   const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('mockUser');
     setUser(null);
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
