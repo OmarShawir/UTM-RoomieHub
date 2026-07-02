@@ -1,3 +1,43 @@
+CREATE TABLE IF NOT EXISTS users (
+  id                    INT PRIMARY KEY AUTO_INCREMENT,
+  email                 VARCHAR(255) NOT NULL UNIQUE,
+  password              VARCHAR(255) NOT NULL,
+  user_type             ENUM('student', 'admin') NOT NULL DEFAULT 'student',
+  failed_login_attempts INT NOT NULL DEFAULT 0,
+  locked_until          DATETIME DEFAULT NULL,
+  last_login            DATETIME DEFAULT NULL,
+  last_failed_login     DATETIME DEFAULT NULL,
+  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS students (
+  id                          INT PRIMARY KEY AUTO_INCREMENT,
+  user_id                     INT NOT NULL UNIQUE,
+  full_name                   VARCHAR(100) NOT NULL,
+  matric_no                   VARCHAR(15) NOT NULL UNIQUE,
+  display_name                VARCHAR(50) DEFAULT NULL,
+  faculty                     VARCHAR(150) DEFAULT NULL,
+  year_of_study               INT DEFAULT NULL,
+  nationality                 VARCHAR(50) DEFAULT NULL,
+  bio                         TEXT DEFAULT NULL,
+  profile_picture             VARCHAR(255) DEFAULT NULL,
+  account_status              ENUM('active', 'suspended', 'reinstated') NOT NULL DEFAULT 'active',
+  email_verified              BOOLEAN NOT NULL DEFAULT FALSE,
+  email_verification_token    VARCHAR(255) DEFAULT NULL,
+  email_token_expiry          DATETIME DEFAULT NULL,
+  reset_token                 VARCHAR(255) DEFAULT NULL,
+  reset_token_expiry          DATETIME DEFAULT NULL,
+  created_at                  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at                  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS admins (
+  id      INT PRIMARY KEY,
+  user_id INT NOT NULL UNIQUE,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 CREATE TABLE IF NOT EXISTS conversations (
   id                  INT PRIMARY KEY AUTO_INCREMENT,
   listing_id          INT DEFAULT NULL,
