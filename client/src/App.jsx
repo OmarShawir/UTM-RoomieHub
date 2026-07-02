@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
+import PageTransition from './components/PageTransition';
 
 // ─── Pages: Auth (Najmeldeen) ────────────────────
 import LoginPage            from './pages/auth/LoginPage';
@@ -90,9 +92,12 @@ function AppRoutes() {
   return (
     <>
       <Navbar />
+      <ScrollToTop />
+      <PageTransition>
       <Routes>
 
         {/* Public */}
+        <Route path="/"                   element={<HomePage />} />
         <Route path="/login"              element={<LoginPage />} />
         <Route path="/register"           element={<RegisterPage />} />
         <Route path="/forgot-password"    element={<ForgotPasswordPage />} />
@@ -101,7 +106,6 @@ function AppRoutes() {
         <Route path="/unauthorized"       element={<UnauthorizedPage />} />
 
         {/* Protected — Students */}
-        <Route path="/"                   element={<PrivateRoute><HomePage /></PrivateRoute>} />
         <Route path="/profile"            element={<PrivateRoute><ViewProfilePage /></PrivateRoute>} />
         <Route path="/profile/edit"       element={<PrivateRoute><EditProfilePage /></PrivateRoute>} />
         <Route path="/profile/photo"      element={<PrivateRoute><UpdatePhotoPage /></PrivateRoute>} />
@@ -147,9 +151,10 @@ function AppRoutes() {
         <Route path="/admin/analytics/export"   element={<AdminRoute><ExportReportPage /></AdminRoute>} />
 
         {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
 
       </Routes>
+      </PageTransition>
       <Footer />
     </>
   );
