@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AlertTriangle } from 'lucide-react';
+import api from '../../services/api';
+import { DEFAULT_AVATAR } from '../../utils/defaults';
 import './AdminPages.css';
 
 export default function SuspendUserPage() {
@@ -8,18 +10,45 @@ export default function SuspendUserPage() {
   const navigate = useNavigate();
   const [duration, setDuration] = useState('7');
   const [reason, setReason] = useState('');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
-  const user = {
-    name: 'Ahmad Zaki bin Abdullah',
-    matric: 'A21EC0123',
-    email: 'ahmad.zaki@graduate.utm.my',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-  };
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await api.get(`/admin/users?keyword=`);
+        // Find this specific user from the users list
+        if (res.data.success) {
+          const found = res.data.users.find((u) => String(u.id) === String(id));
+          setUser(found || null);
+        }
+      } catch (err) {
+        console.error('Failed to load user:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/admin/users');
+    if (!reason.trim()) return;
+    try {
+      setSubmitting(true);
+      await api.put(`/admin/users/${id}/suspend`, { reason });
+      navigate('/admin/users');
+    } catch (err) {
+      console.error('Failed to suspend user:', err);
+      alert('Failed to suspend user. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (loading) return <div className="page-wrapper" style={{ textAlign: 'center', padding: '40px 0' }}>Loading...</div>;
+  if (!user) return <div className="page-wrapper"><p>User not found.</p></div>;
 
   return (
     <div className="page-wrapper" style={{ maxWidth: 560 }}>
@@ -32,10 +61,14 @@ export default function SuspendUserPage() {
 
       <div className="card">
         <div className="user-target-card">
-          <img src={user.avatar} alt={user.name} />
+          <img
+            src={user.profile_picture || DEFAULT_AVATAR}
+            alt={user.full_name}
+            onError={(e) => { e.target.src = DEFAULT_AVATAR; }}
+          />
           <div>
-            <div className="name">{user.name}</div>
-            <div className="sub">{user.matric} • {user.email}</div>
+            <div className="name">{user.full_name}</div>
+            <div className="sub">{user.matric_no} • {user.email}</div>
           </div>
         </div>
 
@@ -64,7 +97,9 @@ export default function SuspendUserPage() {
           </div>
 
           <div className="listing-form-actions" style={{ display: 'flex', gap: 12 }}>
-            <button type="submit" className="btn btn-danger" style={{ flex: 1 }}>Suspend Account</button>
+            <button type="submit" className="btn btn-danger" style={{ flex: 1 }} disabled={submitting}>
+              {submitting ? 'Suspending...' : 'Suspend Account'}
+            </button>
             <button type="button" className="btn btn-secondary" style={{ flex: 1 }} onClick={() => navigate('/admin/users')}>Cancel</button>
           </div>
         </form>

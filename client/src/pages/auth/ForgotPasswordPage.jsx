@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, ArrowLeft } from 'lucide-react';
+import api from '../../services/api';
 import './AuthPages.css';
 
 export default function ForgotPasswordPage() {
@@ -9,20 +10,27 @@ export default function ForgotPasswordPage() {
   const [error, setError]   = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
       setError('Please enter your UTM email');
       return;
     }
-    setError('');
-    setLoading(true);
-
-    // Mock request — replace with real API call later
-    setTimeout(() => {
+    try {
+      setError('');
+      setLoading(true);
+      const res = await api.post('/auth/forgot-password', { email });
+      if (res.data.success) {
+        setSent(true);
+      } else {
+        setError(res.data.message || 'Failed to send reset link.');
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
       setLoading(false);
-      setSent(true);
-    }, 800);
+    }
   };
 
   return (
@@ -61,17 +69,15 @@ export default function ForgotPasswordPage() {
             </div>
           </>
         ) : (
-          <div style={{ textAlign: 'center' }}>
-            <div className="auth-icon-circle success">
-              <Mail size={28} />
+          <div className="auth-success-state">
+            <Mail size={48} className="auth-success-icon" />
+            <h2>Check Your Email</h2>
+            <p>We've sent a password reset link to <strong>{email}</strong>.</p>
+            <div style={{ textAlign: 'center', marginTop: 24 }}>
+              <Link to="/login" className="auth-back-link">
+                <ArrowLeft size={16} /> Back to Login
+              </Link>
             </div>
-            <h2>Check Your Inbox</h2>
-            <p style={{ marginBottom: 20 }}>
-              We've sent a password reset link to <strong>{email}</strong>
-            </p>
-            <Link to="/login" className="btn btn-primary auth-submit" style={{ display: 'inline-block' }}>
-              Back to Login
-            </Link>
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './AuthPages.css';
 
@@ -51,13 +52,14 @@ export default function RegisterPage() {
 
     try {
       await register({
-        full_name: form.fullName,
-        matric_no: form.matricNo,
+        fullName: form.fullName,
+        studentId: form.matricNo,
         email: form.email,
+        password: form.password,
       });
-      navigate('/verify-email');
+      navigate(`/verify-email?email=${encodeURIComponent(form.email)}`);
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError(err?.response?.data?.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -67,8 +69,9 @@ export default function RegisterPage() {
     <div className="auth-page">
       <div className="card auth-card">
         <div className="auth-header">
-          <img src="/Logo1.svg" alt="UTM RoomieHub" className="auth-logo" />
-          <h2>Create Your Account</h2>
+          <img src="/Logo1.svg" alt="UTM RoomieHub" className="auth-logo theme-logo-light" />
+          <img src="/LogoDarkmode.png" alt="UTM RoomieHub" className="auth-logo theme-logo-dark" />
+          <h2>Create Account</h2>
           <p>Join UTM RoomieHub to find your perfect student housing</p>
         </div>
 
@@ -152,6 +155,12 @@ export default function RegisterPage() {
             Already have an account?{' '}
             <Link to="/login" className="auth-link">Sign In</Link>
           </p>
+
+          <div style={{ textAlign: 'center', marginTop: '16px' }}>
+            <Link to="/" className="auth-back-link">
+              <ArrowLeft size={16} /> Back to Home
+            </Link>
+          </div>
         </form>
       </div>
     </div>
