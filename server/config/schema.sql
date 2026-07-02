@@ -132,3 +132,55 @@ CREATE TABLE IF NOT EXISTS match_results (
   FOREIGN KEY (session_id) REFERENCES match_sessions(id) ON DELETE CASCADE,
   FOREIGN KEY (matched_user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS listings (
+  id                    INT PRIMARY KEY AUTO_INCREMENT,
+  user_id               INT NOT NULL,
+  title                 VARCHAR(100) NOT NULL,
+  description           TEXT NOT NULL,
+  price                 DECIMAL(10,2) NOT NULL,
+  room_type             VARCHAR(20) NOT NULL,
+  furnishing            VARCHAR(20) DEFAULT NULL,
+  bathroom_type         VARCHAR(20) DEFAULT NULL,
+  address               VARCHAR(255) NOT NULL,
+  latitude              DECIMAL(10,7) DEFAULT NULL,
+  longitude             DECIMAL(10,7) DEFAULT NULL,
+  distance_from_campus  DECIMAL(4,2) DEFAULT NULL,
+  status                VARCHAR(15) NOT NULL DEFAULT 'active',
+  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS listing_photos (
+  id          INT PRIMARY KEY AUTO_INCREMENT,
+  listing_id  INT NOT NULL,
+  photo_url   VARCHAR(255) NOT NULL,
+  is_primary  BOOLEAN NOT NULL DEFAULT FALSE,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS wishlist (
+  id         INT PRIMARY KEY AUTO_INCREMENT,
+  user_id    INT NOT NULL,
+  listing_id INT NOT NULL,
+  saved_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_wishlist (user_id, listing_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS search_filters (
+  id              INT PRIMARY KEY AUTO_INCREMENT,
+  user_id         INT NOT NULL,
+  keyword         VARCHAR(100) DEFAULT NULL,
+  min_price       DECIMAL(10,2) DEFAULT NULL,
+  max_price       DECIMAL(10,2) DEFAULT NULL,
+  room_type       VARCHAR(20) DEFAULT NULL,
+  max_distance_km DECIMAL(4,2) DEFAULT NULL,
+  furnishing      VARCHAR(20) DEFAULT NULL,
+  bathroom_type   VARCHAR(20) DEFAULT NULL,
+  created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
