@@ -1,3 +1,13 @@
+-- ============================================================
+-- UTM RoomieHub — Database Schema
+-- Run this file once to set up your database
+-- ============================================================
+
+CREATE DATABASE IF NOT EXISTS roomiehub CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE roomiehub;
+
+-- ─── 1. USER MANAGEMENT ─────────────────────────────────────
+
 CREATE TABLE IF NOT EXISTS users (
   id                    INT PRIMARY KEY AUTO_INCREMENT,
   email                 VARCHAR(255) NOT NULL UNIQUE,
@@ -38,6 +48,102 @@ CREATE TABLE IF NOT EXISTS admins (
   user_id INT NOT NULL UNIQUE,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS user_reports (
+  id               INT PRIMARY KEY AUTO_INCREMENT,
+  reporter_id      INT NOT NULL,
+  reported_user_id INT NOT NULL,
+  reason           VARCHAR(100) NOT NULL,
+  description      TEXT DEFAULT NULL,
+  evidence_path    VARCHAR(255) DEFAULT NULL,
+  status           ENUM('pending', 'reviewed', 'resolved') NOT NULL DEFAULT 'pending',
+  created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (reporter_id) REFERENCES users(id),
+  FOREIGN KEY (reported_user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS review_reports (
+  id               INT PRIMARY KEY AUTO_INCREMENT,
+  reporter_id      INT NOT NULL,
+  review_id        INT NOT NULL,
+  reason           VARCHAR(100) NOT NULL,
+  description      TEXT DEFAULT NULL,
+  status           ENUM('pending', 'reviewed', 'resolved') NOT NULL DEFAULT 'pending',
+  created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS admin_actions (
+  id             INT PRIMARY KEY AUTO_INCREMENT,
+  admin_id       INT NOT NULL,
+  target_user_id INT NOT NULL,
+  report_id      INT DEFAULT NULL,
+  action_type    ENUM('suspend', 'reinstate') NOT NULL,
+  reason         TEXT NOT NULL,
+  created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (admin_id) REFERENCES users(id),
+  FOREIGN KEY (target_user_id) REFERENCES users(id),
+  FOREIGN KEY (report_id) REFERENCES user_reports(id)
+);
+
+-- ─── 2. LISTING & SEARCH ────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS listings (
+  id                    INT PRIMARY KEY AUTO_INCREMENT,
+  user_id               INT NOT NULL,
+  title                 VARCHAR(100) NOT NULL,
+  description           TEXT NOT NULL,
+  price                 DECIMAL(10,2) NOT NULL,
+  room_type             VARCHAR(20) NOT NULL,
+  furnishing            VARCHAR(20) DEFAULT NULL,
+  bathroom_type         VARCHAR(20) DEFAULT NULL,
+  address               VARCHAR(255) NOT NULL,
+  latitude              DECIMAL(10,7) DEFAULT NULL,
+  longitude             DECIMAL(10,7) DEFAULT NULL,
+  distance_from_campus  DECIMAL(4,2) DEFAULT NULL,
+  status                VARCHAR(15) NOT NULL DEFAULT 'active',
+  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS listing_photos (
+  id          INT PRIMARY KEY AUTO_INCREMENT,
+  listing_id  INT NOT NULL,
+  photo_url   VARCHAR(255) NOT NULL,
+  is_primary  BOOLEAN NOT NULL DEFAULT FALSE,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS wishlist (
+  id         INT PRIMARY KEY AUTO_INCREMENT,
+  user_id    INT NOT NULL,
+  listing_id INT NOT NULL,
+  saved_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_wishlist (user_id, listing_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS search_filters (
+  id              INT PRIMARY KEY AUTO_INCREMENT,
+  user_id         INT NOT NULL,
+  keyword         VARCHAR(100) DEFAULT NULL,
+  min_price       DECIMAL(10,2) DEFAULT NULL,
+  max_price       DECIMAL(10,2) DEFAULT NULL,
+  room_type       VARCHAR(20) DEFAULT NULL,
+  max_distance_km DECIMAL(4,2) DEFAULT NULL,
+  furnishing      VARCHAR(20) DEFAULT NULL,
+  bathroom_type   VARCHAR(20) DEFAULT NULL,
+  created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- ─── 3. COMMUNICATION & MATCHING ────────────────────────────
+
 CREATE TABLE IF NOT EXISTS conversations (
   id                  INT PRIMARY KEY AUTO_INCREMENT,
   listing_id          INT DEFAULT NULL,
@@ -133,54 +239,56 @@ CREATE TABLE IF NOT EXISTS match_results (
   FOREIGN KEY (matched_user_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS listings (
-  id                    INT PRIMARY KEY AUTO_INCREMENT,
-  user_id               INT NOT NULL,
-  title                 VARCHAR(100) NOT NULL,
-  description           TEXT NOT NULL,
-  price                 DECIMAL(10,2) NOT NULL,
-  room_type             VARCHAR(20) NOT NULL,
-  furnishing            VARCHAR(20) DEFAULT NULL,
-  bathroom_type         VARCHAR(20) DEFAULT NULL,
-  address               VARCHAR(255) NOT NULL,
-  latitude              DECIMAL(10,7) DEFAULT NULL,
-  longitude             DECIMAL(10,7) DEFAULT NULL,
-  distance_from_campus  DECIMAL(4,2) DEFAULT NULL,
-  status                VARCHAR(15) NOT NULL DEFAULT 'active',
-  created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+-- ─── 4. ANALYTICS & TRUST ───────────────────────────────────
 
-CREATE TABLE IF NOT EXISTS listing_photos (
-  id          INT PRIMARY KEY AUTO_INCREMENT,
-  listing_id  INT NOT NULL,
-  photo_url   VARCHAR(255) NOT NULL,
-  is_primary  BOOLEAN NOT NULL DEFAULT FALSE,
-  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS wishlist (
-  id         INT PRIMARY KEY AUTO_INCREMENT,
-  user_id    INT NOT NULL,
-  listing_id INT NOT NULL,
-  saved_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY unique_wishlist (user_id, listing_id),
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS search_filters (
+CREATE TABLE IF NOT EXISTS reviews (
   id              INT PRIMARY KEY AUTO_INCREMENT,
-  user_id         INT NOT NULL,
-  keyword         VARCHAR(100) DEFAULT NULL,
-  min_price       DECIMAL(10,2) DEFAULT NULL,
-  max_price       DECIMAL(10,2) DEFAULT NULL,
-  room_type       VARCHAR(20) DEFAULT NULL,
-  max_distance_km DECIMAL(4,2) DEFAULT NULL,
-  furnishing      VARCHAR(20) DEFAULT NULL,
-  bathroom_type   VARCHAR(20) DEFAULT NULL,
+  reviewer_id     INT NOT NULL,
+  target_user_id  INT DEFAULT NULL,
+  listing_id      INT DEFAULT NULL,
+  rating          INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  pros            TEXT DEFAULT NULL,
+  cons            TEXT DEFAULT NULL,
   created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (reviewer_id) REFERENCES users(id),
+  FOREIGN KEY (target_user_id) REFERENCES users(id),
+  FOREIGN KEY (listing_id) REFERENCES listings(id)
+);
+
+CREATE TABLE IF NOT EXISTS audit_log (
+  id            INT PRIMARY KEY AUTO_INCREMENT,
+  admin_id      INT NOT NULL,
+  target_type   VARCHAR(30) NOT NULL,
+  target_id     INT NOT NULL,
+  action_taken  VARCHAR(50) NOT NULL,
+  justification TEXT NOT NULL,
+  executed_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (admin_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_activity_log (
+  id          INT PRIMARY KEY AUTO_INCREMENT,
+  user_id     INT NOT NULL,
+  action_type VARCHAR(50) NOT NULL,
+  device_info VARCHAR(255) DEFAULT NULL,
+  ip_address  VARCHAR(45) DEFAULT NULL,
+  timestamp   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS listing_snapshots (
+  id                   INT PRIMARY KEY AUTO_INCREMENT,
+  listing_id           INT NOT NULL,
+  recorded_price       DECIMAL(10,2) NOT NULL,
+  room_type            VARCHAR(30) NOT NULL,
+  distance_from_campus DECIMAL(4,2) DEFAULT NULL,
+  snapshot_date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (listing_id) REFERENCES listings(id)
+);
+
+-- ─── Seed: default admin account ────────────────────────────
+-- Password: Admin@123 (bcrypt hashed)
+INSERT IGNORE INTO users (id, email, password, user_type)
+VALUES (1, 'admin@graduate.utm.my', '$2a$12$eaZe1kHdoURlgMNC5aKqQe9bIgfy51KbsEDMrbkqXR2lOPCbCiV12', 'admin');
+
+INSERT IGNORE INTO admins (id, user_id) VALUES (1, 1);
