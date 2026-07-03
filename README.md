@@ -212,39 +212,279 @@ Figma Design: [UTM RoomieHub UI](https://www.figma.com/make/EdhDli9VIOLHfeuEyREn
 
 ---
 
-## � Member Frontend Pages
+## 👥 Member Subsystem Mappings
 
 ### Najmeldeen Mohamed Eltigani Salih — User Management
 
-| Module             | FrontEnd                                                                                                                                                                                                                                                                                          | BackEnd |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Authentication     | [LoginPage.jsx](client/src/pages/auth/LoginPage.jsx)<br>[RegisterPage.jsx](client/src/pages/auth/RegisterPage.jsx)<br>[ForgotPasswordPage.jsx](client/src/pages/auth/ForgotPasswordPage.jsx)<br>[ResetPasswordPage.jsx](client/src/pages/auth/ResetPasswordPage.jsx)<br>[EmailVerificationPage.jsx](client/src/pages/auth/EmailVerificationPage.jsx) |         |
-| Profile Management | [ViewProfilePage.jsx](client/src/pages/profile/ViewProfilePage.jsx)<br>[EditProfilePage.jsx](client/src/pages/profile/EditProfilePage.jsx)<br>[UpdatePhotoPage.jsx](client/src/pages/profile/UpdatePhotoPage.jsx)<br>[OtherProfilePage.jsx](client/src/pages/profile/OtherProfilePage.jsx) |         |
-| Access Control     | [UnauthorizedPage.jsx](client/src/pages/profile/UnauthorizedPage.jsx)<br>[SuspendUserPage.jsx](client/src/pages/admin/SuspendUserPage.jsx)<br>[ReinstateUserPage.jsx](client/src/pages/admin/ReinstateUserPage.jsx) |         |
+<table width="100%">
+<thead>
+<tr>
+<th align="left">Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">FrontEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">BackEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">Database &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Authentication</b></td>
+<td>
+<a href="client/src/pages/auth/LoginPage.jsx">LoginPage.jsx</a><br>
+<a href="client/src/pages/auth/RegisterPage.jsx">RegisterPage.jsx</a><br>
+<a href="client/src/pages/auth/ForgotPasswordPage.jsx">ForgotPasswordPage.jsx</a><br>
+<a href="client/src/pages/auth/ResetPasswordPage.jsx">ResetPasswordPage.jsx</a><br>
+<a href="client/src/pages/auth/EmailVerificationPage.jsx">EmailVerificationPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/auth.routes.js">auth.routes.js</a><br>
+<a href="server/controllers/auth.controller.js">auth.controller.js</a><br>
+<a href="server/models/user.model.js">user.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L11">users</a><br>
+<a href="server/config/schema.sql#L24">students</a>
+</td>
+</tr>
+<tr>
+<td><b>Profile Management</b></td>
+<td>
+<a href="client/src/pages/profile/ViewProfilePage.jsx">ViewProfilePage.jsx</a><br>
+<a href="client/src/pages/profile/EditProfilePage.jsx">EditProfilePage.jsx</a><br>
+<a href="client/src/pages/profile/UpdatePhotoPage.jsx">UpdatePhotoPage.jsx</a><br>
+<a href="client/src/pages/profile/OtherProfilePage.jsx">OtherProfilePage.jsx</a>
+</td>
+<td>
+<a href="server/routes/user.routes.js">user.routes.js</a><br>
+<a href="server/controllers/user.controller.js">user.controller.js</a><br>
+<a href="server/models/user.model.js">user.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L24">students</a>
+</td>
+</tr>
+<tr>
+<td><b>Access Control</b></td>
+<td>
+<a href="client/src/pages/profile/UnauthorizedPage.jsx">UnauthorizedPage.jsx</a><br>
+<a href="client/src/pages/admin/SuspendUserPage.jsx">SuspendUserPage.jsx</a><br>
+<a href="client/src/pages/admin/ReinstateUserPage.jsx">ReinstateUserPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/admin.routes.js">admin.routes.js</a><br>
+<a href="server/controllers/admin.controller.js">admin.controller.js</a><br>
+<a href="server/models/admin.model.js">admin.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L11">users</a><br>
+<a href="server/config/schema.sql#L24">students</a><br>
+<a href="server/config/schema.sql#L78">admin_actions</a>
+</td>
+</tr>
+</tbody>
+</table>
 
 ### Hebatulla Omer Abdulla Ali — Listing & Search
 
-| Module             | FrontEnd                                                                                                                                                                                                                                                                                  | BackEnd |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Listings           | [MyListingsPage.jsx](client/src/pages/listings/MyListingsPage.jsx)<br>[CreateListingPage.jsx](client/src/pages/listings/CreateListingPage.jsx)<br>[EditListingPage.jsx](client/src/pages/listings/EditListingPage.jsx)<br>[ListingDetailPage.jsx](client/src/pages/listings/ListingDetailPage.jsx)<br>[WishlistPage.jsx](client/src/pages/listings/WishlistPage.jsx) |         |
-| Search & Discovery | [SearchPage.jsx](client/src/pages/search/SearchPage.jsx)<br>[NoResultsPage.jsx](client/src/pages/search/NoResultsPage.jsx)                                                                                                                                                               |         |
-| Map & Navigation   | [MapViewPage.jsx](client/src/pages/map/MapViewPage.jsx)<br>[GetDirectionsPage.jsx](client/src/pages/map/GetDirectionsPage.jsx)                                                                                                                                                           |         |
+<table width="100%">
+<thead>
+<tr>
+<th align="left">Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">FrontEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">BackEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">Database &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Listings</b></td>
+<td>
+<a href="client/src/pages/listings/MyListingsPage.jsx">MyListingsPage.jsx</a><br>
+<a href="client/src/pages/listings/CreateListingPage.jsx">CreateListingPage.jsx</a><br>
+<a href="client/src/pages/listings/EditListingPage.jsx">EditListingPage.jsx</a><br>
+<a href="client/src/pages/listings/ListingDetailPage.jsx">ListingDetailPage.jsx</a><br>
+<a href="client/src/pages/listings/WishlistPage.jsx">WishlistPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/listing.routes.js">listing.routes.js</a><br>
+<a href="server/controllers/listing.controller.js">listing.controller.js</a><br>
+<a href="server/models/listing.model.js">listing.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L93">listings</a><br>
+<a href="server/config/schema.sql#L112">listing_photos</a><br>
+<a href="server/config/schema.sql#L121">wishlist</a>
+</td>
+</tr>
+<tr>
+<td><b>Search & Discovery</b></td>
+<td>
+<a href="client/src/pages/search/SearchPage.jsx">SearchPage.jsx</a><br>
+<a href="client/src/pages/search/NoResultsPage.jsx">NoResultsPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/listing.routes.js">listing.routes.js</a><br>
+<a href="server/controllers/listing.controller.js">listing.controller.js</a><br>
+<a href="server/models/listing.model.js">listing.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L93">listings</a>
+</td>
+</tr>
+<tr>
+<td><b>Map & Navigation</b></td>
+<td>
+<a href="client/src/pages/map/MapViewPage.jsx">MapViewPage.jsx</a><br>
+<a href="client/src/pages/map/GetDirectionsPage.jsx">GetDirectionsPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/listing.routes.js">listing.routes.js</a><br>
+<a href="server/controllers/listing.controller.js">listing.controller.js</a><br>
+<a href="server/models/listing.model.js">listing.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L93">listings</a>
+</td>
+</tr>
+</tbody>
+</table>
 
 ### Omar Nasreldin Mahgoub Shawir — Communication & Matching
 
-| Module                | FrontEnd                                                                                                                                                                                                                                                                          | BackEnd |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Chat & Communication  | [ChatListPage.jsx](client/src/pages/chat/ChatListPage.jsx)<br>[ChatConversationPage.jsx](client/src/pages/chat/ChatConversationPage.jsx)                                                                                                                                         |         |
-| Recommendation System | [SetPreferencesPage.jsx](client/src/pages/recommendation/SetPreferencesPage.jsx)<br>[RecommendationResults.jsx](client/src/pages/recommendation/RecommendationResults.jsx)<br>[RecommendedListingPage.jsx](client/src/pages/recommendation/RecommendedListingPage.jsx)         |         |
-| Roommate Matching     | [LifestyleProfilePage.jsx](client/src/pages/matching/LifestyleProfilePage.jsx)<br>[MatchResultsPage.jsx](client/src/pages/matching/MatchResultsPage.jsx)<br>[MatchedProfilePage.jsx](client/src/pages/matching/MatchedProfilePage.jsx)<br>[RespondMatchPage.jsx](client/src/pages/matching/RespondMatchPage.jsx) |         |
+<table width="100%">
+<thead>
+<tr>
+<th align="left">Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">FrontEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">BackEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">Database &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Chat & Communication</b></td>
+<td>
+<a href="client/src/pages/chat/ChatListPage.jsx">ChatListPage.jsx</a><br>
+<a href="client/src/pages/chat/ChatConversationPage.jsx">ChatConversationPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/chat.routes.js">chat.routes.js</a><br>
+<a href="server/controllers/chat.controller.js">chat.controller.js</a><br>
+<a href="server/models/chat.model.js">chat.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L147">conversations</a><br>
+<a href="server/config/schema.sql#L160">messages</a>
+</td>
+</tr>
+<tr>
+<td><b>Recommendation System</b></td>
+<td>
+<a href="client/src/pages/recommendation/SetPreferencesPage.jsx">SetPreferencesPage.jsx</a><br>
+<a href="client/src/pages/recommendation/RecommendationResults.jsx">RecommendationResults.jsx</a><br>
+<a href="client/src/pages/recommendation/RecommendedListingPage.jsx">RecommendedListingPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/matching.routes.js">matching.routes.js</a><br>
+<a href="server/controllers/matching.controller.js">matching.controller.js</a><br>
+<a href="server/models/matching.model.js">matching.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L172">room_preferences</a><br>
+<a href="server/config/schema.sql#L185">recommendation_sessions</a><br>
+<a href="server/config/schema.sql#L195">recommendation_results</a>
+</td>
+</tr>
+<tr>
+<td><b>Roommate Matching</b></td>
+<td>
+<a href="client/src/pages/matching/LifestyleProfilePage.jsx">LifestyleProfilePage.jsx</a><br>
+<a href="client/src/pages/matching/MatchResultsPage.jsx">MatchResultsPage.jsx</a><br>
+<a href="client/src/pages/matching/MatchedProfilePage.jsx">MatchedProfilePage.jsx</a><br>
+<a href="client/src/pages/matching/RespondMatchPage.jsx">RespondMatchPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/matching.routes.js">matching.routes.js</a><br>
+<a href="server/controllers/matching.controller.js">matching.controller.js</a><br>
+<a href="server/models/matching.model.js">matching.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L205">lifestyle_profiles</a><br>
+<a href="server/config/schema.sql#L221">match_sessions</a><br>
+<a href="server/config/schema.sql#L231">match_results</a>
+</td>
+</tr>
+</tbody>
+</table>
 
 ### Farah Maged Abdelkarim — Analytics & Trust
 
-| Module            | FrontEnd                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | BackEnd |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| Reviews & Ratings | [SubmitReviewPage.jsx](client/src/pages/reviews/SubmitReviewPage.jsx)<br>[ListingReviewsPage.jsx](client/src/pages/reviews/ListingReviewsPage.jsx)<br>[UserReviewsPage.jsx](client/src/pages/reviews/UserReviewsPage.jsx)                                                                                                                                                                                                                                                 |         |
-| Admin Panel       | [AdminDashboardPage.jsx](client/src/pages/admin/AdminDashboardPage.jsx)<br>[AdminUsersPage.jsx](client/src/pages/admin/AdminUsersPage.jsx)<br>[AdminListingsPage.jsx](client/src/pages/admin/AdminListingsPage.jsx)<br>[AdminReportsPage.jsx](client/src/pages/admin/AdminReportsPage.jsx)<br>[AdminReportDetailPage.jsx](client/src/pages/admin/AdminReportDetailPage.jsx) |         |
-| Analytics         | [AnalyticsOverviewPage.jsx](client/src/pages/analytics/AnalyticsOverviewPage.jsx)<br>[UserActivityPage.jsx](client/src/pages/analytics/UserActivityPage.jsx)<br>[ListingTrendsPage.jsx](client/src/pages/analytics/ListingTrendsPage.jsx)<br>[ExportReportPage.jsx](client/src/pages/analytics/ExportReportPage.jsx)                                                                                                                                                     |         |
+<table width="100%">
+<thead>
+<tr>
+<th align="left">Module &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">FrontEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">BackEnd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th align="left">Database &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Reviews & Ratings</b></td>
+<td>
+<a href="client/src/pages/reviews/SubmitReviewPage.jsx">SubmitReviewPage.jsx</a><br>
+<a href="client/src/pages/reviews/ListingReviewsPage.jsx">ListingReviewsPage.jsx</a><br>
+<a href="client/src/pages/reviews/UserReviewsPage.jsx">UserReviewsPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/review.routes.js">review.routes.js</a><br>
+<a href="server/controllers/review.controller.js">review.controller.js</a><br>
+<a href="server/models/review.model.js">review.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L244">reviews</a>
+</td>
+</tr>
+<tr>
+<td><b>Admin Panel</b></td>
+<td>
+<a href="client/src/pages/admin/AdminDashboardPage.jsx">AdminDashboardPage.jsx</a><br>
+<a href="client/src/pages/admin/AdminUsersPage.jsx">AdminUsersPage.jsx</a><br>
+<a href="client/src/pages/admin/AdminListingsPage.jsx">AdminListingsPage.jsx</a><br>
+<a href="client/src/pages/admin/AdminReportsPage.jsx">AdminReportsPage.jsx</a><br>
+<a href="client/src/pages/admin/AdminReportDetailPage.jsx">AdminReportDetailPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/admin.routes.js">admin.routes.js</a><br>
+<a href="server/controllers/admin.controller.js">admin.controller.js</a><br>
+<a href="server/models/admin.model.js">admin.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L52">user_reports</a><br>
+<a href="server/config/schema.sql#L66">review_reports</a><br>
+<a href="server/config/schema.sql#L78">admin_actions</a>
+</td>
+</tr>
+<tr>
+<td><b>Analytics</b></td>
+<td>
+<a href="client/src/pages/analytics/AnalyticsOverviewPage.jsx">AnalyticsOverviewPage.jsx</a><br>
+<a href="client/src/pages/analytics/UserActivityPage.jsx">UserActivityPage.jsx</a><br>
+<a href="client/src/pages/analytics/ListingTrendsPage.jsx">ListingTrendsPage.jsx</a><br>
+<a href="client/src/pages/analytics/ExportReportPage.jsx">ExportReportPage.jsx</a>
+</td>
+<td>
+<a href="server/routes/admin.routes.js">admin.routes.js</a><br>
+<a href="server/controllers/admin.controller.js">admin.controller.js</a><br>
+<a href="server/models/admin.model.js">admin.model.js</a>
+</td>
+<td>
+<a href="server/config/schema.sql#L258">audit_log</a><br>
+<a href="server/config/schema.sql#L269">user_activity_log</a><br>
+<a href="server/config/schema.sql#L279">listing_snapshots</a>
+</td>
+</tr>
+</tbody>
+</table>
 
 ---
 
