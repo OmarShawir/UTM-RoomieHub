@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "reviewer_id": 2,
+    "reviewer_name": "Muhammad Haziq bin Rusli",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+    "listing_id": 1,
+    "rating": 5,
+    "pros": "Super clean, quiet environment. The owner is very responsible and replies fast. Location is literally 5 minutes on foot to UTM main gate — perfect for early morning lectures.",
+    "cons": "The kitchen is a bit small but manageable for one person.",
+    "created_at": "2025-10-20T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "reviewer_id": 4,
+    "reviewer_name": "Lim Wei Jie",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/67.jpg",
+    "listing_id": 1,
+    "rating": 4,
+    "pros": "Good value for money. Wi-Fi is fast enough for online classes and Zoom meetings. Neighbours are mostly students so it's generally quiet.",
+    "cons": "Air-conditioning unit is a bit old and can be noisy at night. Parking can be a bit tight on weekends.",
+    "created_at": "2025-10-25T14:30:00Z"
+  },
+  {
+    "id": 3,
+    "reviewer_id": 8,
+    "reviewer_name": "Ahmad Farhan bin Ismail",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/84.jpg",
+    "listing_id": 1,
+    "rating": 5,
+    "pros": "Stayed here for 6 months. Would recommend to any UTM student. Owner is fair, never raised rent without proper notice. Washing machine in good condition.",
+    "cons": "No covered parking but there's street parking available.",
+    "created_at": "2025-11-05T09:15:00Z"
+  },
+  {
+    "id": 4,
+    "reviewer_id": 2,
+    "reviewer_name": "Muhammad Haziq bin Rusli",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+    "listing_id": 2,
+    "rating": 4,
+    "pros": "Private bathroom is a huge plus. The house is modern and clean. Good for someone who values privacy.",
+    "cons": "A bit far from campus — need to own a motorcycle or car. Price is on the higher end for a student budget.",
+    "created_at": "2025-10-18T16:00:00Z"
+  },
+  {
+    "id": 5,
+    "reviewer_id": 6,
+    "reviewer_name": "Rajveer Singh a/l Harjinder",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/55.jpg",
+    "listing_id": 2,
+    "rating": 3,
+    "pros": "Clean place. Owner stays on-site so maintenance requests are handled quickly.",
+    "cons": "Strict house rules — no visitors after 10 PM. The kitchen is shared with the owner so meal preparation time can clash.",
+    "created_at": "2025-11-01T11:45:00Z"
+  },
+  {
+    "id": 6,
+    "reviewer_id": 4,
+    "reviewer_name": "Lim Wei Jie",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/67.jpg",
+    "listing_id": 3,
+    "rating": 5,
+    "pros": "Incredibly affordable, walking distance to UTM. My housemates are great people. Internet is included in rent which is a bonus.",
+    "cons": "Basic furnishings — don't expect a luxury room. The wardrobe is small.",
+    "created_at": "2025-10-28T10:30:00Z"
+  },
+  {
+    "id": 7,
+    "reviewer_id": 8,
+    "reviewer_name": "Ahmad Farhan bin Ismail",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/84.jpg",
+    "listing_id": 4,
+    "rating": 5,
+    "pros": "Amazing studio apartment with an incredible view of Skudai. Gym and pool access made life so comfortable. Worth the price for postgraduate students on scholarship.",
+    "cons": "A bit far from UTM but traffic is manageable. Parking costs extra (RM50/month).",
+    "created_at": "2025-11-15T08:00:00Z"
+  },
+  {
+    "id": 8,
+    "reviewer_id": 2,
+    "reviewer_name": "Muhammad Haziq bin Rusli",
+    "reviewer_avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+    "listing_id": 5,
+    "rating": 4,
+    "pros": "Great if you have a group of friends to split the rent. Very spacious, backyard is a bonus for barbecue sessions. Landlord is flexible with lease terms.",
+    "cons": "House is a bit old — some of the fixtures need replacement. No public transport nearby, must have own vehicle.",
+    "created_at": "2025-11-20T13:00:00Z"
+  }
+]
