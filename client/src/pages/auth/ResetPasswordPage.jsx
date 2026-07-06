@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import api from '../../services/api';
 import './AuthPages.css';
 
 export default function ResetPasswordPage() {
@@ -8,10 +9,16 @@ export default function ResetPasswordPage() {
   const [error, setError]     = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!token) {
+      setError('Invalid or expired password reset link.');
+      return;
+    }
     if (password.length < 8) {
       setError('Password must be at least 8 characters');
       return;
@@ -21,14 +28,22 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    setError('');
-    setLoading(true);
-
-    // Mock request — replace with real API call later
-    setTimeout(() => {
+    try {
+      setError('');
+      setLoading(true);
+      const res = await api.post('/auth/reset-password', { token, password });
+      if (res.data.success) {
+        alert('Password reset successfully. You can now log in.');
+        navigate('/login');
+      } else {
+        setError(res.data.message || 'Failed to reset password.');
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
       setLoading(false);
-      navigate('/login');
-    }, 800);
+    }
   };
 
   return (

@@ -1,0 +1,314 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "full_name": "Dr. Amirul Hadi bin Zulkifli",
+      "email": "admin@roomiehub.utm.my",
+      "role": "admin",
+      "matric_no": "ADMIN001",
+      "account_status": "active",
+      "created_at": "2024-01-15T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "full_name": "Muhammad Haziq bin Rusli",
+      "email": "haziq@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A22EC0045",
+      "account_status": "active",
+      "created_at": "2024-03-10T09:30:00Z"
+    },
+    {
+      "id": 3,
+      "full_name": "Nurul Ain binti Mohd Fauzi",
+      "email": "ain@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A21CE0112",
+      "account_status": "active",
+      "created_at": "2024-04-02T11:00:00Z"
+    },
+    {
+      "id": 4,
+      "full_name": "Lim Wei Jie",
+      "email": "weijie@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A23CS0078",
+      "account_status": "active",
+      "created_at": "2025-01-08T10:15:00Z"
+    },
+    {
+      "id": 5,
+      "full_name": "Siti Rahmah binti Kamarudin",
+      "email": "rahmah@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A20ME0033",
+      "account_status": "active",
+      "created_at": "2023-10-20T14:00:00Z"
+    },
+    {
+      "id": 6,
+      "full_name": "Rajveer Singh a/l Harjinder",
+      "email": "raj@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A22EE0091",
+      "account_status": "active",
+      "created_at": "2024-05-15T09:00:00Z"
+    },
+    {
+      "id": 7,
+      "full_name": "Chong Mei Ling",
+      "email": "meilin@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A21BM0061",
+      "account_status": "suspended",
+      "created_at": "2024-02-28T16:45:00Z"
+    },
+    {
+      "id": 8,
+      "full_name": "Ahmad Farhan bin Ismail",
+      "email": "farhan@graduate.utm.my",
+      "role": "student",
+      "matric_no": "A23IC0005",
+      "account_status": "active",
+      "created_at": "2025-02-01T07:30:00Z"
+    }
+  ],
+  "reports": [
+    {
+      "id": 1,
+      "reporter_id": 2,
+      "reporter_name": "Muhammad Haziq bin Rusli",
+      "reported_user_id": 7,
+      "reported_name": "Chong Mei Ling",
+      "reason": "Fake Listing / Fraud",
+      "description": "This user posted a listing at Skudai Parade with misleading images taken from the internet. The price listed was RM200 but after contacting, they asked for RM500 upfront deposit without any formal agreement. Suspect it's a scam.",
+      "status": "resolved",
+      "created_at": "2025-09-18T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "reporter_id": 4,
+      "reporter_name": "Lim Wei Jie",
+      "reported_user_id": 7,
+      "reported_name": "Chong Mei Ling",
+      "reason": "Inappropriate Behavior",
+      "description": "After expressing no interest in the listing, this user continued to send multiple messages including threats to give bad reviews on other platforms. Screenshots are available if needed.",
+      "status": "reviewed",
+      "created_at": "2025-09-22T14:30:00Z"
+    },
+    {
+      "id": 3,
+      "reporter_id": 3,
+      "reporter_name": "Nurul Ain binti Mohd Fauzi",
+      "reported_user_id": 6,
+      "reported_name": "Rajveer Singh a/l Harjinder",
+      "reason": "Inaccurate Listing Information",
+      "description": "The listing mentions air conditioning in all rooms but when I visited, only the master room had AC. The other rooms only had standing fans. This is misleading to potential tenants.",
+      "status": "pending",
+      "created_at": "2026-01-10T09:00:00Z"
+    },
+    {
+      "id": 4,
+      "reporter_id": 8,
+      "reporter_name": "Ahmad Farhan bin Ismail",
+      "reported_user_id": 6,
+      "reported_name": "Rajveer Singh a/l Harjinder",
+      "reason": "No Response / Ghost Listing",
+      "description": "I messaged this person 5 times over 2 weeks regarding the double room in Taman Sri Pulai. No reply at all but the listing is still shown as active. It's wasting other students' time.",
+      "status": "pending",
+      "created_at": "2026-02-14T11:00:00Z"
+    },
+    {
+      "id": 5,
+      "reporter_id": 2,
+      "reporter_name": "Muhammad Haziq bin Rusli",
+      "reported_user_id": 7,
+      "reported_name": "Chong Mei Ling",
+      "reason": "Spam / Multiple Duplicate Listings",
+      "description": "This user has posted the same room listing 4 times with slightly different titles and prices. Clearly done to get more visibility. Platform rules only allow one active listing per room.",
+      "status": "resolved",
+      "created_at": "2025-08-30T16:00:00Z"
+    }
+  ],
+  "analytics": {
+    "total_users": 247,
+    "active_listings": 63,
+    "pending_reports": 2,
+    "avg_price": 462,
+    "total_reviews": 84,
+    "total_conversations": 312,
+    "new_users_this_month": 18,
+    "trends": [
+      { "month": "Jan", "count": 8 },
+      { "month": "Feb", "count": 14 },
+      { "month": "Mar", "count": 22 },
+      { "month": "Apr", "count": 31 },
+      { "month": "May", "count": 27 },
+      { "month": "Jun", "count": 35 },
+      { "month": "Jul", "count": 41 }
+    ],
+    "activity": [
+      { "user": "Lim Wei Jie", "action": "Created new listing: Budget Double Room — Taman Sri Pulai", "time": "2026-07-06T13:45:00Z" },
+      { "user": "Ahmad Farhan bin Ismail", "action": "Submitted a report against Rajveer Singh", "time": "2026-07-06T12:30:00Z" },
+      { "user": "Nurul Ain binti Mohd Fauzi", "action": "Updated listing: 3-Bedroom House for Rent", "time": "2026-07-06T11:15:00Z" },
+      { "user": "Muhammad Haziq bin Rusli", "action": "Completed AI roommate matching profile", "time": "2026-07-06T10:00:00Z" },
+      { "user": "Siti Rahmah binti Kamarudin", "action": "Added new listing: Studio Apartment Nusa Bestari", "time": "2026-07-06T09:20:00Z" },
+      { "user": "Rajveer Singh a/l Harjinder", "action": "Received a 5-star review on Budget Double Room listing", "time": "2026-07-05T18:00:00Z" }
+    ],
+    "pendingReports": [
+      {
+        "id": 3,
+        "reporter_name": "Nurul Ain binti Mohd Fauzi",
+        "reported_name": "Rajveer Singh a/l Harjinder",
+        "reason": "Inaccurate Listing Information",
+        "status": "pending",
+        "created_at": "2026-01-10T09:00:00Z"
+      },
+      {
+        "id": 4,
+        "reporter_name": "Ahmad Farhan bin Ismail",
+        "reported_name": "Rajveer Singh a/l Harjinder",
+        "reason": "No Response / Ghost Listing",
+        "status": "pending",
+        "created_at": "2026-02-14T11:00:00Z"
+      }
+    ],
+    "summary": {
+      "total": 5,
+      "pending": 2,
+      "reviewed": 1,
+      "resolved": 2
+    }
+  },
+  "listings": [
+    {
+      "id": 1,
+      "title": "Cozy Single Room near UTM Main Gate",
+      "owner_name": "Siti Rahmah binti Kamarudin",
+      "address": "No. 12, Jalan Universiti 3, Taman Universiti, 81300 Skudai, Johor",
+      "price": 450,
+      "status": "active",
+      "created_at": "2025-10-01T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Master Bedroom with Private Bathroom in Skudai",
+      "owner_name": "Nurul Ain binti Mohd Fauzi",
+      "address": "No. 7, Jalan Permas 4, Taman Permas Jaya, 81750 Masai, Johor",
+      "price": 580,
+      "status": "active",
+      "created_at": "2025-10-05T14:30:00Z"
+    },
+    {
+      "id": 3,
+      "title": "Budget Double Room — Walking Distance to UTM",
+      "owner_name": "Rajveer Singh a/l Harjinder",
+      "address": "No. 45, Jalan Sri Pulai 7, Taman Sri Pulai, 81300 Skudai, Johor",
+      "price": 280,
+      "status": "active",
+      "created_at": "2025-10-15T09:00:00Z"
+    },
+    {
+      "id": 4,
+      "title": "Fully Furnished Studio Apartment — Nusa Bestari",
+      "owner_name": "Siti Rahmah binti Kamarudin",
+      "address": "Unit 8-12, Residensi Nusa, Jalan Nusa Bestari 1, 81300 Skudai, Johor",
+      "price": 950,
+      "status": "active",
+      "created_at": "2025-11-01T11:30:00Z"
+    },
+    {
+      "id": 5,
+      "title": "3-Bedroom House for Rent — Taman Universiti",
+      "owner_name": "Nurul Ain binti Mohd Fauzi",
+      "address": "No. 18, Jalan Universiti 11, Taman Universiti, 81300 Skudai, Johor",
+      "price": 1400,
+      "status": "active",
+      "created_at": "2025-11-10T08:45:00Z"
+    },
+    {
+      "id": 6,
+      "title": "Small Single Room near UTM KL",
+      "owner_name": "Rajveer Singh a/l Harjinder",
+      "address": "No. 3B, Jalan Semarak, 54100 Kuala Lumpur",
+      "price": 380,
+      "status": "active",
+      "created_at": "2025-12-01T15:00:00Z"
+    },
+    {
+      "id": 7,
+      "title": "Fraudulent Listing — Skudai Parade",
+      "owner_name": "Chong Mei Ling",
+      "address": "Jalan Skudai, 81300 Skudai, Johor",
+      "price": 200,
+      "status": "removed",
+      "created_at": "2025-09-20T12:00:00Z"
+    }
+  ],
+  "detailed": {
+    "listings": {
+      "total": 63,
+      "avg_price": 462,
+      "avg_views": 247,
+      "trends": [
+        { "month": "Jan", "count": 5 },
+        { "month": "Feb", "count": 9 },
+        { "month": "Mar", "count": 14 },
+        { "month": "Apr", "count": 18 },
+        { "month": "May", "count": 11 },
+        { "month": "Jun", "count": 21 },
+        { "month": "Jul", "count": 15 }
+      ],
+      "byType": [
+        { "name": "Single Room", "count": 31, "pct": 49 },
+        { "name": "Master Room", "count": 12, "pct": 19 },
+        { "name": "Double Room", "count": 10, "pct": 16 },
+        { "name": "Studio Apartment", "count": 6, "pct": 10 },
+        { "name": "Whole House", "count": 4, "pct": 6 }
+      ],
+      "byLocation": [
+        { "name": "Taman Universiti", "count": 22, "pct": 35 },
+        { "name": "Taman Sri Pulai", "count": 14, "pct": 22 },
+        { "name": "Skudai Parade Area", "count": 11, "pct": 17 },
+        { "name": "Nusa Bestari", "count": 9, "pct": 14 },
+        { "name": "Others (KL/JB)", "count": 7, "pct": 11 }
+      ],
+      "topListings": [
+        { "title": "Fully Furnished Studio Apartment — Nusa Bestari", "views": 421, "wishlists": 34, "messages": 22, "conversion": "High" },
+        { "title": "3-Bedroom House for Rent — Taman Universiti", "views": 356, "wishlists": 27, "messages": 18, "conversion": "High" },
+        { "title": "Cozy Single Room near UTM Main Gate", "views": 312, "wishlists": 18, "messages": 15, "conversion": "Medium" },
+        { "title": "Budget Double Room — Walking Distance to UTM", "views": 240, "wishlists": 9, "messages": 11, "conversion": "Medium" },
+        { "title": "Master Bedroom with Private Bathroom in Skudai", "views": 187, "wishlists": 11, "messages": 8, "conversion": "Low" }
+      ]
+    },
+    "users": {
+      "total": 247,
+      "dau": 38,
+      "wau": 112,
+      "avg_session": "8m 42s",
+      "sessions_per_user": 4.3,
+      "registrations": [
+        { "month": "Feb", "count": 24 },
+        { "month": "Mar", "count": 38 },
+        { "month": "Apr", "count": 52 },
+        { "month": "May", "count": 43 },
+        { "month": "Jun", "count": 60 },
+        { "month": "Jul", "count": 18 }
+      ],
+      "segments": [
+        { "name": "Active Searchers", "users": 98, "pct": "40%", "session": "12m 10s", "engagement": "High" },
+        { "name": "Listing Owners", "users": 55, "pct": "22%", "session": "6m 30s", "engagement": "Medium" },
+        { "name": "Occasional Browsers", "users": 74, "pct": "30%", "session": "3m 45s", "engagement": "Low" },
+        { "name": "New Users (<7 days)", "users": 20, "pct": "8%", "session": "2m 20s", "engagement": "Low" }
+      ],
+      "features": [
+        { "name": "Browse Listings", "sessions": 8420, "pct": 100 },
+        { "name": "Chat & Messaging", "sessions": 5310, "pct": 63 },
+        { "name": "AI Roommate Matching", "sessions": 3150, "pct": 37 },
+        { "name": "Wishlist", "sessions": 2880, "pct": 34 },
+        { "name": "Post / Manage Listings", "sessions": 1920, "pct": 23 },
+        { "name": "Review Submission", "sessions": 940, "pct": 11 }
+      ]
+    }
+  }
+}

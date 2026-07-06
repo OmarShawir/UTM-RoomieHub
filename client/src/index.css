@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ─── CSS Variables ─────────────────────────────── */
+/* ─── CSS Variables (Light) ─────────────────────── */
 :root {
   --color-primary:          #7B1E1E;
   --color-primary-hover:    #6B1717;
@@ -24,11 +24,55 @@
   --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* ─── CSS Variables (Dark) ──────────────────────── */
+[data-theme="dark"] {
+  --color-primary:          #991B1B;
+  --color-primary-hover:    #B91C1C;
+  --color-background:       #0F1117;
+  --color-surface:          #1A1D27;
+  --color-text-primary:     #E5E7EB;
+  --color-text-secondary:   #9CA3AF;
+  --color-success:          #34D399;
+  --color-error:            #B91C1C;
+  --color-warning:          #FBBF24;
+  --color-border:           #2D3244;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+[data-theme="dark"] .btn-primary {
+  box-shadow: 0 0 12px rgba(153, 27, 27, 0.5);
+}
+[data-theme="dark"] .btn-primary:hover {
+  box-shadow: 0 0 20px rgba(185, 28, 28, 0.7);
+}
+
+/* ─── Logo Theme Toggle ─────────────────────────── */
+.theme-logo-light { display: block; }
+.theme-logo-dark { display: none !important; }
+
+[data-theme="dark"] .theme-logo-light { display: none !important; }
+[data-theme="dark"] .theme-logo-dark { display: block !important; }
+
 /* ─── Reset ─────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html, body, #root {
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 html, body {
@@ -57,10 +101,13 @@ img {
 
 /* ─── Layout ─────────────────────────────────────── */
 .page-wrapper {
+  flex: 1;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px 24px;
   padding-top: 88px; /* offset for fixed navbar */
+  animation: fadeInUp 0.4s ease-out both;
 }
 
 /* ─── Buttons ────────────────────────────────────── */
@@ -74,17 +121,28 @@ img {
   font-size: 15px;
   font-weight: 600;
   border: none;
-  transition: background 0.2s, opacity 0.2s;
+  transition: background 0.2s, opacity 0.2s, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-primary {
   background: var(--color-primary);
   color: #fff;
 }
-.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 14px rgba(123, 30, 30, 0.3);
+}
 
 .btn-secondary {
-  background: transparent;
+  background: var(--color-surface);
   color: var(--color-text-primary);
   border: 1px solid var(--color-border);
 }
@@ -126,7 +184,7 @@ img {
   font-family: var(--font-family);
   color: var(--color-text-primary);
   background: var(--color-surface);
-  transition: border-color 0.2s;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
   outline: none;
 }
 
@@ -134,6 +192,17 @@ img {
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(123, 30, 30, 0.08);
+}
+
+/* Fix Chrome autofill background in dark mode */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover, 
+.form-group input:-webkit-autofill:focus, 
+.form-group input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--color-surface) inset !important;
+  -webkit-text-fill-color: var(--color-text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .form-group input.error,
@@ -154,6 +223,12 @@ img {
   border-radius: var(--radius-lg);
   padding: 24px;
   box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  animation: fadeInUp 0.45s ease-out both;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* ─── Badge ──────────────────────────────────────── */
@@ -171,6 +246,11 @@ img {
 .badge-suspended { background: #FEE2E2; color: #991B1B; }
 .badge-info      { background: #DBEAFE; color: #1E40AF; }
 
+[data-theme="dark"] .badge-active    { background: rgba(52, 211, 153, 0.15); color: #6EE7B7; border: 1px solid rgba(52, 211, 153, 0.2); }
+[data-theme="dark"] .badge-pending   { background: rgba(251, 191, 36, 0.15); color: #FDE047; border: 1px solid rgba(251, 191, 36, 0.2); }
+[data-theme="dark"] .badge-suspended { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.2); }
+[data-theme="dark"] .badge-info      { background: rgba(59, 130, 246, 0.15); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.2); }
+
 /* ─── Modal ──────────────────────────────────────── */
 .modal-overlay {
   position: fixed;
@@ -181,6 +261,7 @@ img {
   justify-content: center;
   z-index: 200;
   padding: 16px;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .modal {
@@ -190,6 +271,7 @@ img {
   max-width: 480px;
   width: 100%;
   box-shadow: var(--shadow-md);
+  animation: scaleIn 0.25s ease-out;
 }
 
 .modal h2 {
@@ -210,4 +292,175 @@ img {
   height: 1px;
   background: var(--color-border);
   margin: 24px 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS — GPU-accelerated (transform + opacity)
+   ═══════════════════════════════════════════════════ */
+
+/* ── Keyframes ─────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(123, 30, 30, 0.15); }
+  50%      { box-shadow: 0 0 0 6px rgba(123, 30, 30, 0); }
+}
+
+/* ── Staggered card entrance (grids) ───────────────── */
+.listing-grid > *:nth-child(1)  { animation-delay: 0.00s; }
+.listing-grid > *:nth-child(2)  { animation-delay: 0.06s; }
+.listing-grid > *:nth-child(3)  { animation-delay: 0.12s; }
+.listing-grid > *:nth-child(4)  { animation-delay: 0.18s; }
+.listing-grid > *:nth-child(5)  { animation-delay: 0.24s; }
+.listing-grid > *:nth-child(6)  { animation-delay: 0.30s; }
+.listing-grid > *:nth-child(n+7){ animation-delay: 0.35s; }
+
+/* ── Listing card image zoom on hover ──────────────── */
+.listing-card-img,
+.listing-detail-main-img,
+.listing-detail-thumb {
+  transition: transform 0.35s ease;
+}
+
+.listing-card-wrapper:hover .listing-card-img,
+.card:hover .listing-card-img {
+  transform: scale(1.04);
+}
+
+/* ── Wishlist heart pulse on active ────────────────── */
+.listing-card-fav:hover {
+  animation: pulseGlow 0.8s ease;
+}
+
+/* ── Badge subtle entrance ─────────────────────────── */
+.badge {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ── Skeleton / loading shimmer ────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--color-border) 25%,
+    #f3f4f6 50%,
+    var(--color-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ── Photo upload slot hover effect ────────────────── */
+.photo-upload-slot {
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+.photo-upload-slot:hover {
+  transform: scale(1.02);
+  border-color: var(--color-primary);
+}
+
+/* ── Amenity item hover ────────────────────────────── */
+.amenity-item {
+  transition: transform 0.2s ease;
+}
+.amenity-item:hover {
+  transform: translateX(4px);
+}
+
+/* ── Direction mode cards ──────────────────────────── */
+.directions-mode-card {
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+.directions-mode-card:hover {
+  transform: translateX(4px);
+}
+
+/* ── Nav link hover effects ────────────────────────── */
+.nav-link {
+  transition: color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+.nav-link:hover {
+  transform: translateY(-1px);
+}
+
+/* ── Chat list item hover ──────────────────────────── */
+.chat-list-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chat-list-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Roommate / match card hover ───────────────────── */
+.roommate-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.roommate-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Profile avatar hover ──────────────────────────── */
+.profile-avatar-lg {
+  transition: transform 0.3s ease;
+}
+.profile-avatar-lg:hover {
+  transform: scale(1.05);
+}
+
+/* ── Map marker bounce on appear ───────────────────── */
+.leaflet-price-marker,
+.leaflet-campus-marker,
+.leaflet-destination-marker {
+  animation: scaleIn 0.3s ease-out;
+  transition: transform 0.2s ease;
+}
+.leaflet-price-marker:hover {
+  transform: scale(1.12);
+}
+
+/* ── Error / success message entrance ──────────────── */
+.auth-error {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCESSIBILITY — Respect reduced-motion preference
+   ═══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

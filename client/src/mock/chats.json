@@ -1,0 +1,170 @@
+[
+  {
+    "id": 1,
+    "user1_id": 2,
+    "user2_id": 5,
+    "other_user_name": "Siti Rahmah binti Kamarudin",
+    "other_user_avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+    "other_user": {
+      "id": 5,
+      "full_name": "Siti Rahmah binti Kamarudin",
+      "profile_picture": "https://randomuser.me/api/portraits/women/44.jpg"
+    },
+    "last_message": "Sure! You can come for viewing this Saturday at 10 AM. Just message me when you're nearby.",
+    "last_message_at": "2026-07-05T15:30:00Z",
+    "updated_at": "2026-07-05T15:30:00Z",
+    "unread_count": 2,
+    "messages": [
+      {
+        "id": 101,
+        "sender_id": 2,
+        "content": "Hi Kak Rahmah! I'm interested in the single room listing at Taman Universiti. Is it still available?",
+        "created_at": "2026-07-05T10:20:00Z"
+      },
+      {
+        "id": 102,
+        "sender_id": 5,
+        "content": "Hello! Yes, the room is still available. When would you like to come for viewing?",
+        "created_at": "2026-07-05T10:35:00Z"
+      },
+      {
+        "id": 103,
+        "sender_id": 2,
+        "content": "This weekend works for me. Can I come Saturday or Sunday?",
+        "created_at": "2026-07-05T11:00:00Z"
+      },
+      {
+        "id": 104,
+        "sender_id": 5,
+        "content": "Sure! You can come for viewing this Saturday at 10 AM. Just message me when you're nearby.",
+        "created_at": "2026-07-05T15:30:00Z"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "user1_id": 2,
+    "user2_id": 3,
+    "other_user_name": "Nurul Ain binti Mohd Fauzi",
+    "other_user_avatar": "https://randomuser.me/api/portraits/women/29.jpg",
+    "other_user": {
+      "id": 3,
+      "full_name": "Nurul Ain binti Mohd Fauzi",
+      "profile_picture": "https://randomuser.me/api/portraits/women/29.jpg"
+    },
+    "last_message": "Noted! I will inform you once I confirm with my housemate.",
+    "last_message_at": "2026-07-04T09:15:00Z",
+    "updated_at": "2026-07-04T09:15:00Z",
+    "unread_count": 0,
+    "messages": [
+      {
+        "id": 201,
+        "sender_id": 2,
+        "content": "Hi, I saw the 3-bedroom house listing. Is it available from January 2026?",
+        "created_at": "2026-07-04T08:30:00Z"
+      },
+      {
+        "id": 202,
+        "sender_id": 3,
+        "content": "Yes it should be! The current tenants are leaving end of December. How many people in your group?",
+        "created_at": "2026-07-04T08:45:00Z"
+      },
+      {
+        "id": 203,
+        "sender_id": 2,
+        "content": "We are 3 — all male students from Faculty of Computing. Can we negotiate the rental a bit?",
+        "created_at": "2026-07-04T09:00:00Z"
+      },
+      {
+        "id": 204,
+        "sender_id": 3,
+        "content": "Noted! I will inform you once I confirm with my housemate.",
+        "created_at": "2026-07-04T09:15:00Z"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "user1_id": 2,
+    "user2_id": 6,
+    "other_user_name": "Rajveer Singh a/l Harjinder",
+    "other_user_avatar": "https://randomuser.me/api/portraits/men/55.jpg",
+    "other_user": {
+      "id": 6,
+      "full_name": "Rajveer Singh a/l Harjinder",
+      "profile_picture": "https://randomuser.me/api/portraits/men/55.jpg"
+    },
+    "last_message": "The rent is RM280/month per person. Utilities split equally, usually around RM40-50 extra.",
+    "last_message_at": "2026-07-03T14:00:00Z",
+    "updated_at": "2026-07-03T14:00:00Z",
+    "unread_count": 0,
+    "messages": [
+      {
+        "id": 301,
+        "sender_id": 2,
+        "content": "Hey Raj, is the double room in Taman Sri Pulai still up for grabs?",
+        "created_at": "2026-07-03T13:30:00Z"
+      },
+      {
+        "id": 302,
+        "sender_id": 6,
+        "content": "Yes bro! We have one spot left. Are you alone or with a friend?",
+        "created_at": "2026-07-03T13:42:00Z"
+      },
+      {
+        "id": 303,
+        "sender_id": 2,
+        "content": "Just me. What's the full monthly cost including utilities?",
+        "created_at": "2026-07-03T13:55:00Z"
+      },
+      {
+        "id": 304,
+        "sender_id": 6,
+        "content": "The rent is RM280/month per person. Utilities split equally, usually around RM40-50 extra.",
+        "created_at": "2026-07-03T14:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "user1_id": 4,
+    "user2_id": 5,
+    "other_user_name": "Siti Rahmah binti Kamarudin",
+    "other_user_avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+    "other_user": {
+      "id": 5,
+      "full_name": "Siti Rahmah binti Kamarudin",
+      "profile_picture": "https://randomuser.me/api/portraits/women/44.jpg"
+    },
+    "last_message": "That's fine! I'll reserve it for you until Friday. Please confirm by then.",
+    "last_message_at": "2026-07-01T17:00:00Z",
+    "updated_at": "2026-07-01T17:00:00Z",
+    "unread_count": 1,
+    "messages": [
+      {
+        "id": 401,
+        "sender_id": 4,
+        "content": "Hi! I'm a first year student from Penang. I'm very interested in the studio apartment at Nusa Bestari.",
+        "created_at": "2026-07-01T10:00:00Z"
+      },
+      {
+        "id": 402,
+        "sender_id": 5,
+        "content": "Hello! Welcome to UTM. The studio is fully furnished and available from August. Are you able to view it this week?",
+        "created_at": "2026-07-01T10:20:00Z"
+      },
+      {
+        "id": 403,
+        "sender_id": 4,
+        "content": "Yes but I'm still in Penang until July 10. Can I pay a deposit to reserve it?",
+        "created_at": "2026-07-01T16:45:00Z"
+      },
+      {
+        "id": 404,
+        "sender_id": 5,
+        "content": "That's fine! I'll reserve it for you until Friday. Please confirm by then.",
+        "created_at": "2026-07-01T17:00:00Z"
+      }
+    ]
+  }
+]

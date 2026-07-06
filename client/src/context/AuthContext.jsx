@@ -4,91 +4,118 @@ import api from '../services/api';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser]       = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // On app load, check if user is already logged in
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      api.get('/auth/me')
-        .then(res => setUser(res.data.user))
-        .catch(() => {
-          // Backend not reachable yet — fall back to the mock session if we have one
-          const mockUser = localStorage.getItem('mockUser');
-          if (mockUser) {
-            setUser(JSON.parse(mockUser));
-          } else {
-            localStorage.removeItem('token');
-          }
-        })
-        .finally(() => setLoading(false));
+      // Mocking /auth/me — synchronous, no delay needed in mock mode
+      const isAdmin = token === 'fake-admin-token';
+      setUser(
+        isAdmin
+          ? {
+              id: 1,
+              full_name: 'Dr. Amirul Hadi bin Zulkifli',
+              display_name: 'Amirul Hadi',
+              email: 'admin@roomiehub.utm.my',
+              role: 'admin',
+              matric_no: 'ADMIN001',
+              bio: 'Platform Administrator for RoomieHub UTM. Responsible for system integrity and user management.',
+              profile_picture: 'https://randomuser.me/api/portraits/men/1.jpg',
+              nationality: 'Malaysian',
+              faculty: 'Faculty of Computing',
+              year_of_study: null,
+              account_status: 'active',
+              created_at: '2024-01-15T08:00:00Z',
+            }
+          : {
+              id: 2,
+              full_name: 'Muhammad Haziq bin Rusli',
+              display_name: 'Haziq',
+              email: 'haziq@graduate.utm.my',
+              role: 'student',
+              matric_no: 'A22EC0045',
+              bio: '3rd year Software Engineering student at UTM. Looking for a quiet and clean roommate near Taman Universiti.',
+              profile_picture: 'https://randomuser.me/api/portraits/men/32.jpg',
+              nationality: 'Malaysian',
+              faculty: 'Faculty of Computing',
+              year_of_study: 3,
+              account_status: 'active',
+              created_at: '2024-03-10T09:30:00Z',
+            }
+      );
+      setLoading(false);
     } else {
       setLoading(false);
     }
   }, []);
 
   const login = async (email, password) => {
-    try {
-      const res = await api.post('/auth/login', { email, password });
-      localStorage.setItem('token', res.data.token);
-      setUser(res.data.user);
-    } catch (err) {
-      // Backend not available yet — fall back to a mock session so the UI is testable
-      if (!err.response) {
-        const mockUser = {
-          id: 'mock-' + Date.now(),
-          full_name: email.split('@')[0],
-          email,
-          role: email.includes('admin') ? 'admin' : 'student',
-        };
-        localStorage.setItem('token', 'mock-token');
-        localStorage.setItem('mockUser', JSON.stringify(mockUser));
+    // Mocking /auth/login
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const isAdmin = email.includes('admin');
+        const fakeToken = isAdmin ? 'fake-admin-token' : 'fake-user-token';
+        const mockUser = isAdmin
+          ? {
+              id: 1,
+              full_name: 'Dr. Amirul Hadi bin Zulkifli',
+              display_name: 'Amirul Hadi',
+              email: 'admin@roomiehub.utm.my',
+              role: 'admin',
+              matric_no: 'ADMIN001',
+              bio: 'Platform Administrator for RoomieHub UTM. Responsible for system integrity and user management.',
+              profile_picture: 'https://randomuser.me/api/portraits/men/1.jpg',
+              nationality: 'Malaysian',
+              faculty: 'Faculty of Computing',
+              year_of_study: null,
+              account_status: 'active',
+              created_at: '2024-01-15T08:00:00Z',
+            }
+          : {
+              id: 2,
+              full_name: 'Muhammad Haziq bin Rusli',
+              display_name: 'Haziq',
+              email: 'haziq@graduate.utm.my',
+              role: 'student',
+              matric_no: 'A22EC0045',
+              bio: '3rd year Software Engineering student at UTM. Looking for a quiet and clean roommate near Taman Universiti.',
+              profile_picture: 'https://randomuser.me/api/portraits/men/32.jpg',
+              nationality: 'Malaysian',
+              faculty: 'Faculty of Computing',
+              year_of_study: 3,
+              account_status: 'active',
+              created_at: '2024-03-10T09:30:00Z',
+            };
+
+        localStorage.setItem('token', fakeToken);
         setUser(mockUser);
-      } else {
-        throw err;
-      }
-    }
+        resolve();
+      }, 500);
+    });
   };
 
   const register = async ({ fullName, studentId, email, password }) => {
-    try {
-      const res = await api.post('/auth/register', {
-        full_name: fullName,
-        student_id: studentId,
-        email,
-        password,
-      });
-      localStorage.setItem('token', res.data.token);
-      setUser(res.data.user);
-    } catch (err) {
-      // Backend not available yet — fall back to a mock session so the UI is testable
-      if (!err.response) {
-        const mockUser = {
-          id: 'mock-' + Date.now(),
-          full_name: fullName,
-          student_id: studentId,
-          email,
-          role: email.includes('admin') ? 'admin' : 'student',
-        };
-        localStorage.setItem('token', 'mock-token');
-        localStorage.setItem('mockUser', JSON.stringify(mockUser));
-        setUser(mockUser);
-      } else {
-        throw err;
-      }
-    }
+    // Mocking /auth/register
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 500);
+    });
+    // Registration does NOT return a token — user must verify email first
   };
 
   const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('mockUser');
     setUser(null);
-    window.location.href = '/login';
+    // Navigation is handled by the caller (Navbar) using React Router
+    // so there's no full-page reload lag here
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

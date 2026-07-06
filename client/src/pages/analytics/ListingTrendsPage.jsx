@@ -1,29 +1,43 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, BarChart3 } from 'lucide-react';
+import api from '../../services/api';
 import '../admin/AdminPages.css';
 
-const byType = [
-  { name: 'Private Room', count: 156, pct: 46 },
-  { name: 'Shared Room', count: 112, pct: 33 },
-  { name: 'Studio Apartment', count: 52, pct: 15 },
-  { name: 'Full Apartment', count: 22, pct: 6 },
-];
-
-const byLocation = [
-  { name: 'Skudai', count: 87, pct: 25 },
-  { name: 'Taman University', count: 69, pct: 20 },
-  { name: 'Austin Heights', count: 52, pct: 15 },
-  { name: 'Taman Molek', count: 45, pct: 13 },
-  { name: 'Gelang Patah', count: 38, pct: 11 },
-];
-
-const topListings = [
-  { title: 'Cozy Studio near UTM', views: 342, wishlists: 45, messages: 23, conversion: '32%' },
-  { title: 'Modern Apartment in Skudai', views: 298, wishlists: 38, messages: 19, conversion: '28%' },
-  { title: 'Shared Room - Taman U', views: 276, wishlists: 34, messages: 17, conversion: '25%' },
-];
-
 export default function ListingTrendsPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDetailedAnalytics = async () => {
+      try {
+        const res = await api.get('/admin/analytics/detailed');
+        if (res.data.success) {
+          setData(res.data.data.listings);
+        }
+      } catch (err) {
+        console.error('Error fetching listing trends analytics:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDetailedAnalytics();
+  }, []);
+
+  if (loading) {
+    return <div className="page-wrapper" style={{ textAlign: 'center', padding: '40px 0' }}>Loading listing trends...</div>;
+  }
+
+  if (!data) {
+    return (
+      <div className="page-wrapper">
+        <div style={{ background: '#fef2f2', color: '#991b1b', padding: '12px 16px', borderRadius: 8, fontSize: 14 }}>
+          Failed to load listing trends data.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page-wrapper">
       <Link to="/admin/analytics" className="auth-back-link" style={{ color: 'var(--color-primary)', marginBottom: 14, display: 'inline-flex' }}>
@@ -36,35 +50,82 @@ export default function ListingTrendsPage() {
       </div>
 
       <div className="admin-stats-grid">
-        <div className="card admin-stat-card"><div className="stat-label">Total Listings</div><div className="stat-value">342</div><div className="stat-delta up">+8% this month</div></div>
-        <div className="card admin-stat-card"><div className="stat-label">Avg. Price</div><div className="stat-value">RM 425</div><div className="stat-delta up">+RM15 from last month</div></div>
-        <div className="card admin-stat-card"><div className="stat-label">Avg. Views/Listing</div><div className="stat-value">127</div><div className="stat-delta up">+12 from last month</div></div>
-        <div className="card admin-stat-card"><div className="stat-label">Conversion Rate</div><div className="stat-value">23%</div><div className="stat-delta up">+2% from last month</div></div>
+        <div className="card admin-stat-card">
+          <div className="stat-label">Total Listings</div>
+          <div className="stat-value">{data.total}</div>
+          <div className="stat-delta up">Live rooms</div>
+        </div>
+        <div className="card admin-stat-card">
+          <div className="stat-label">Avg. Price</div>
+          <div className="stat-value">RM {data.avg_price}</div>
+          <div className="stat-delta up">Per month</div>
+        </div>
+        <div className="card admin-stat-card">
+          <div className="stat-label">Avg. Views/Listing</div>
+          <div className="stat-value">{data.avg_views}</div>
+          <div className="stat-delta up">Views count</div>
+        </div>
+        <div className="card admin-stat-card">
+          <div className="stat-label">Engagement Level</div>
+          <div className="stat-value">Active</div>
+          <div className="stat-delta up">Live updates</div>
+        </div>
       </div>
 
       <div className="card" style={{ marginBottom: 20 }}>
-        <h3 style={{ fontSize: 16, fontWeight: 600 }}>Listing Activity</h3>
-        <div className="chart-placeholder"><BarChart3 size={28} style={{ marginRight: 10 }} /> Bar chart: new listings & conversions over time</div>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 20 }}>Listing Activity Over Time (New Listings Created)</h3>
+        {(!data.trends || data.trends.length === 0) ? (
+          <div style={{ textAlign: 'center', padding: '20px 0', color: 'var(--color-text-secondary)' }}>No listing activity trends data available.</div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', height: 160, padding: '0 20px 10px 20px', borderBottom: '2px solid var(--color-border)' }}>
+            {data.trends.map((item, idx) => {
+              const maxVal = Math.max(...data.trends.map(t => t.count), 1);
+              const heightPct = (item.count / maxVal) * 100;
+              return (
+                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, marginBottom: 6, color: 'var(--color-text-primary)' }}>{item.count}</span>
+                  <div style={{
+                    width: '45%',
+                    height: `${Math.max(heightPct * 0.9, 8)}px`,
+                    background: 'linear-gradient(180deg, var(--color-primary) 0%, rgba(123, 30, 30, 0.7) 100%)',
+                    borderRadius: '6px 6px 0 0',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                    transition: 'height 0.3s ease'
+                  }} />
+                  <span style={{ fontSize: 11, color: 'var(--color-text-secondary)', marginTop: 8, fontWeight: 500 }}>{item.month}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 20 }}>
         <div className="card">
           <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Listings by Type</h3>
-          {byType.map((t) => (
-            <div key={t.name} className="progress-bar-row">
-              <div className="top-line"><span>{t.name}</span><span>{t.count} ({t.pct}%)</span></div>
-              <div className="progress-bar-track"><div className="progress-bar-fill" style={{ width: `${t.pct}%` }} /></div>
-            </div>
-          ))}
+          {data.byType.length === 0 ? (
+            <div style={{ color: 'var(--color-text-secondary)' }}>No active listings.</div>
+          ) : (
+            data.byType.map((t) => (
+              <div key={t.name} className="progress-bar-row">
+                <div className="top-line"><span>{t.name}</span><span>{t.count} ({t.pct}%)</span></div>
+                <div className="progress-bar-track"><div className="progress-bar-fill" style={{ width: `${t.pct}%` }} /></div>
+              </div>
+            ))
+          )}
         </div>
         <div className="card">
           <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Popular Locations</h3>
-          {byLocation.map((l) => (
-            <div key={l.name} className="progress-bar-row">
-              <div className="top-line"><span>{l.name}</span><span>{l.count} ({l.pct}%)</span></div>
-              <div className="progress-bar-track"><div className="progress-bar-fill" style={{ width: `${l.pct}%` }} /></div>
-            </div>
-          ))}
+          {data.byLocation.length === 0 ? (
+            <div style={{ color: 'var(--color-text-secondary)' }}>No active listings.</div>
+          ) : (
+            data.byLocation.map((l) => (
+              <div key={l.name} className="progress-bar-row">
+                <div className="top-line"><span>{l.name}</span><span>{l.count} ({l.pct}%)</span></div>
+                <div className="progress-bar-track"><div className="progress-bar-fill" style={{ width: `${l.pct}%` }} /></div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -72,14 +133,33 @@ export default function ListingTrendsPage() {
         <div className="admin-list-header"><h3>Top Performing Listings</h3></div>
         <div className="admin-table-wrap">
           <table className="admin-table">
-            <thead><tr><th>Listing</th><th>Views</th><th>Wishlists</th><th>Messages</th><th>Conversion</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Listing</th>
+                <th>Views</th>
+                <th>Wishlists</th>
+                <th>Conversations Opened</th>
+                <th>Conversion Score</th>
+              </tr>
+            </thead>
             <tbody>
-              {topListings.map((l) => (
-                <tr key={l.title}>
-                  <td>{l.title}</td><td>{l.views}</td><td>{l.wishlists}</td><td>{l.messages}</td>
-                  <td><span className="badge badge-active">{l.conversion}</span></td>
+              {data.topListings.length === 0 ? (
+                <tr>
+                  <td colSpan="5" style={{ textAlign: 'center', color: 'var(--color-text-secondary)', padding: '20px' }}>
+                    No listings found.
+                  </td>
                 </tr>
-              ))}
+              ) : (
+                data.topListings.map((l) => (
+                  <tr key={l.title}>
+                    <td style={{ fontWeight: 500 }}>{l.title}</td>
+                    <td>{l.views}</td>
+                    <td>{l.wishlists}</td>
+                    <td>{l.messages}</td>
+                    <td><span className="badge badge-active">{l.conversion}</span></td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
