@@ -1,0 +1,108 @@
+{
+  "preferences": {
+    "budget": 500,
+    "max_budget": 500,
+    "location": "Taman Universiti",
+    "room_type": "single",
+    "max_distance_km": 5,
+    "move_in_date": "2026-08-01"
+  },
+  "room_recommendations": [
+    {
+      "id": 1,
+      "title": "Cozy Single Room near UTM Main Gate",
+      "price": 450,
+      "location": "Taman Universiti",
+      "address": "No. 12, Jalan Universiti 3, Taman Universiti, 81300 Skudai",
+      "property_type": "room",
+      "room_type": "single",
+      "match_score": 97,
+      "distance_from_campus": 0.9,
+      "cover_photo": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&auto=format&fit=crop&q=80",
+      "images": ["https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&auto=format&fit=crop&q=80"],
+      "amenities": ["Wi-Fi", "Air Conditioning", "Washing Machine", "Kitchen"]
+    },
+    {
+      "id": 3,
+      "title": "Budget Double Room — Walking Distance to UTM",
+      "price": 280,
+      "location": "Taman Sri Pulai",
+      "address": "No. 45, Jalan Sri Pulai 7, Taman Sri Pulai, 81300 Skudai",
+      "property_type": "room",
+      "room_type": "double",
+      "match_score": 88,
+      "distance_from_campus": 1.5,
+      "cover_photo": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&auto=format&fit=crop&q=80",
+      "images": ["https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&auto=format&fit=crop&q=80"],
+      "amenities": ["Wi-Fi", "Air Conditioning", "Washing Machine", "Kitchen"]
+    },
+    {
+      "id": 5,
+      "title": "3-Bedroom House for Rent — Taman Universiti",
+      "price": 1400,
+      "location": "Taman Universiti",
+      "address": "No. 18, Jalan Universiti 11, Taman Universiti, 81300 Skudai",
+      "property_type": "house",
+      "room_type": "whole_house",
+      "match_score": 75,
+      "distance_from_campus": 1.2,
+      "cover_photo": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&auto=format&fit=crop&q=80",
+      "images": ["https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&auto=format&fit=crop&q=80"],
+      "amenities": ["Wi-Fi", "Air Conditioning", "Parking", "Backyard"]
+    }
+  ],
+  "roommate_profile": {
+    "sleep_schedule": "night",
+    "study_habit": "quiet",
+    "cleanliness_level": "very-clean",
+    "social_preference": "balanced",
+    "noise_tolerance": "low",
+    "gender_preference": "any",
+    "has_pets": false,
+    "is_smoker": false
+  },
+  "roommate_matches": [
+    {
+      "user_id": 4,
+      "full_name": "Lim Wei Jie",
+      "profile_picture": "https://randomuser.me/api/portraits/men/67.jpg",
+      "compatibility_score": 94,
+      "bio": "First year CS student from Penang. Quiet, clean, non-smoker. Looking for affordable accommodation near UTM Skudai.",
+      "faculty": "Faculty of Computing",
+      "year_of_study": 1,
+      "sleep_schedule": "night",
+      "cleanliness_level": "very-clean",
+      "social_preference": "balanced",
+      "is_smoker": false,
+      "has_pets": false
+    },
+    {
+      "user_id": 8,
+      "full_name": "Ahmad Farhan bin Ismail",
+      "profile_picture": "https://randomuser.me/api/portraits/men/84.jpg",
+      "compatibility_score": 86,
+      "bio": "ICT student Year 1. Quiet, tidy, and non-smoker. Looking to move off campus next semester.",
+      "faculty": "Faculty of Computing",
+      "year_of_study": 1,
+      "sleep_schedule": "early",
+      "cleanliness_level": "moderate",
+      "social_preference": "quiet",
+      "is_smoker": false,
+      "has_pets": false
+    },
+    {
+      "user_id": 6,
+      "full_name": "Rajveer Singh a/l Harjinder",
+      "profile_picture": "https://randomuser.me/api/portraits/men/55.jpg",
+      "compatibility_score": 72,
+      "bio": "Electrical Engineering student from Ipoh. Plays guitar, likes cooking. Looking for housemates to share utilities.",
+      "faculty": "Faculty of Electrical Engineering",
+      "year_of_study": 3,
+      "sleep_schedule": "night",
+      "cleanliness_level": "moderate",
+      "social_preference": "social",
+      "is_smoker": false,
+      "has_pets": false
+    }
+  ]
+}
